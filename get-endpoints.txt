@@ -1,0 +1,4 @@
+/
+/api/users
+/api/users/:id
+/api/products

@@ -17,7 +17,15 @@ listGetEndpoints(serverPath);
 let server;
 try {
   server = require(serverPath);
-  console.log(`✅ Server loaded and running from: ${serverPath}`);
+  // Check if it's an Express app (has .listen function)
+  if (typeof server.listen === 'function') {
+    server.listen(3000, () => {
+      console.log(`🚀 Server started from: ${serverPath}`);
+    });
+  } else {
+    console.log(`⚠️ The required module didn't export an Express app with a .listen method.`);
+  }
+  //console.log(`✅ Server loaded and running from: ${serverPath}`);
 } catch (error) {
   console.error(`❌ Failed to load server file: ${error.message}`);
   process.exit(1);
@@ -29,19 +37,28 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-rl.question("🔄 Do you want to terminate the running server? (y/n): ", (answer) => {
-  if (answer.toLowerCase() === 'y') {
-    if (server && typeof server.close === 'function') {
-      server.close(() => {
-        console.log("🛑 Server terminated successfully.");
-        process.exit(0);
-      });
-    } else {
-      console.warn("⚠️ Server does not support graceful shutdown. Exiting forcefully.");
-      process.exit(1);
-    }
-  } else {
-    console.log("✅ Server will continue running. You can stop it manually with Ctrl+C.");
-    rl.close();
-  }
-});
+// rl.question("🔄 Do you want to terminate the running server? (y/n): ", (answer) => {
+//     if (answer.toLowerCase() === 'y'){
+//         console.log("🛑 Server terminated successfully.");
+//         rl.close();
+//     }else{
+//         console.log("✅ Server will continue running. You can stop it manually with Ctrl+C.");
+//     }
+// });
+
+// rl.question("🔄 Do you want to terminate the running server? (y/n): ", (answer) => {
+//   if (answer.toLowerCase() === 'y') {
+//     if (server && typeof server.close === 'function') {
+//       server.close(() => {
+//         console.log("🛑 Server terminated successfully.");
+//         process.exit(0);
+//       });
+//     } else {
+//       console.warn("⚠️ Server does not support graceful shutdown. Exiting forcefully.");
+//       process.exit(1);
+//     }
+//   } else {
+//     console.log("✅ Server will continue running. You can stop it manually with Ctrl+C.");
+//     rl.close();
+//   }
+// });

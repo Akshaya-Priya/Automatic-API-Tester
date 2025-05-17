@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs'); //for file handling
 
 function listGetEndpoints(serverFilePath) {
   const absolutePath = path.resolve(process.cwd(), serverFilePath);
@@ -18,18 +19,28 @@ function listGetEndpoints(serverFilePath) {
   }
 
   console.log(`🔍 GET endpoints in "${serverFilePath}":`);
+  const output=[];
 
   app._router.stack.forEach((middleware) => {
     if (middleware.route && middleware.route.methods.get) {
-      console.log(`➡️  ${middleware.route.path}`);
+      const route = middleware.route.path;
+      console.log(`➡️  ${route}`);
+      output.push(route);
     } else if (middleware.name === 'router' && middleware.handle.stack) {
       middleware.handle.stack.forEach((handler) => {
         if (handler.route && handler.route.methods.get) {
-          console.log(`➡️  ${handler.route.path}`);
+          const route = handler.route.path;
+          console.log(`➡️  ${route}`);
+          output.push(route);
         }
       });
     }
   });
+
+  // Write to a file
+  const outputFile = path.join(process.cwd(), 'get-endpoints.txt');
+  fs.writeFileSync(outputFile, output.join('\n'), 'utf-8');
+  console.log(`📝 GET endpoints saved to ${outputFile}`);
 }
 
 // EXPORT it properly
