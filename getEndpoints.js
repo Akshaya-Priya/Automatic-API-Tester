@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs'); //for file handling
+const { testFromFile, sendRequest } = require('./testEndpoints');
 
 function listGetEndpoints(serverFilePath) {
   const absolutePath = path.resolve(process.cwd(), serverFilePath);
@@ -41,6 +42,7 @@ function listGetEndpoints(serverFilePath) {
   const outputFile = path.join(process.cwd(), 'get-endpoints.txt');
   fs.writeFileSync(outputFile, output.join('\n'), 'utf-8');
   console.log(`📝 GET endpoints saved to ${outputFile}`);
+  testFromFile();
 }
 
 // EXPORT it properly
