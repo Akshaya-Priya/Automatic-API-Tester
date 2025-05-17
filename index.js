@@ -2,6 +2,7 @@
 
 const path = require('path');
 const readline = require('readline');
+const listGetEndpoints = require('./getEndpoints.js'); // assuming you saved the function
 
 // Get the server file path from CLI
 const args = process.argv.slice(2);
@@ -11,6 +12,7 @@ if (args.length === 0) {
 }
 
 const serverPath = path.resolve(process.cwd(), args[0]);
+listGetEndpoints(serverPath);
 
 let server;
 try {
