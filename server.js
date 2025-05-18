@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors());
-const port = 3000;
+const port = 4000;
 
 // Home route
 app.get('/', (req, res) => {

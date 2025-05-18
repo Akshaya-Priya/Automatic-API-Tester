@@ -1,18 +1,18 @@
 const path = require('path');
-const fs = require('fs'); //for file handling
-const { testFromFile, sendRequest } = require('./testEndpoints');
+const fs = require('fs').promises; //for file handling
+const { testFromFile } = require('./testEndpoints');
 
-function listGetEndpoints(serverFilePath) {
-  const absolutePath = path.resolve(process.cwd(), serverFilePath);
+async function listGetEndpoints(app, serverFilePath) {
+//   const absolutePath = path.resolve(process.cwd(), serverFilePath);
 
-  let app;
-  try {
-    // Load the Express app from the given file
-    app = require(absolutePath);
-  } catch (err) {
-    console.error(`❌ Failed to load server: ${err.message}`);
-    return;
-  }
+//   let app;
+//   try {
+//     // Load the Express app from the given file
+//     app = require(absolutePath);
+//   } catch (err) {
+//     console.error(`❌ Failed to load server: ${err.message}`);
+//     return;
+//   }
 
   if (!app._router || !app._router.stack) {
     console.error('❌ No routes found. Make sure the app exports an Express instance.');
@@ -40,9 +40,19 @@ function listGetEndpoints(serverFilePath) {
 
   // Write to a file
   const outputFile = path.join(process.cwd(), 'get-endpoints.txt');
-  fs.writeFileSync(outputFile, output.join('\n'), 'utf-8');
-  console.log(`📝 GET endpoints saved to ${outputFile}`);
-  testFromFile();
+//   fs.writeFileSync(outputFile, output.join('\n'), 'utf-8');
+//   console.log(`📝 GET endpoints saved to ${outputFile}`);
+//   testFromFile();
+try {
+    await fs.writeFile(outputFile, output.join('\n'), 'utf-8');
+    console.log(`📝 GET endpoints saved to ${outputFile}`);
+  } catch (err) {
+    console.error(`❌ Failed to write file: ${err.message}`);
+  }
+  // Call testFromFile if it's async
+  if (typeof testFromFile === 'function') {
+    await testFromFile();
+  }
 }
 
 // EXPORT it properly

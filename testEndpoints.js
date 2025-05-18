@@ -30,10 +30,10 @@ async function sendRequest(endpoint) {
     });
 
     const text = await response.text();
-    const textContent = `\n\n➡️ [${method}] ${url}\nStatus: ${response.status}\n${text}`;
+    const textContent = `➡️ [${method}] ${url}\nStatus: ${response.status}\n${text}\n`;
     console.log(textContent);
   } catch (error) {
-    const textContent = `\n\n❌ Error for ${url}: ${error.message}`;
+    const textContent = `\n\n❌ Error for ${url}: ${error.message}\n`;
     console.log(textContent);
   }
 }
@@ -53,8 +53,8 @@ async function testFromFile() {
     // document.getElementById("url").value = `http://localhost:3000${endpoint}`;
     // document.getElementById("headers").value = "";
     // document.getElementById("body").value = "";
+    console.log(`\n\n📡 Testing endpoint: ${endpoint}`);
     await sendRequest(endpoint);
-    console.log(`📡 Testing endpoint: ${endpoint}`);
     await new Promise(res => setTimeout(res, 500)); // Optional delay between requests
   }
 }
