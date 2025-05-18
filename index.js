@@ -12,7 +12,8 @@ async function main(){
         console.error('❌ Please provide the path to your server file, e.g. `run-server server.js`');
         process.exit(1);
     }
-    const serverPath = path.resolve(process.cwd(), args[0]);
+    const inputPath = args[0];
+    const serverPath = path.isAbsolute(inputPath)? inputPath: path.resolve(process.cwd(), inputPath);
 
     let serverInstance;
     try {
