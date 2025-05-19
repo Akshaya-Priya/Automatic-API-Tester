@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/api/users",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/api/users/:id",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/api/products",
+    "methods": [
+      "GET"
+    ]
+  }
+]
