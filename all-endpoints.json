@@ -1,24 +1,72 @@
 [
   {
-    "path": "/",
+    "path": "/users",
     "methods": [
       "GET"
     ]
   },
   {
-    "path": "/api/users",
+    "path": "/users/:id",
     "methods": [
       "GET"
     ]
   },
   {
-    "path": "/api/users/:id",
+    "path": "/users",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/users/:id",
+    "methods": [
+      "PUT"
+    ]
+  },
+  {
+    "path": "/users/:id",
+    "methods": [
+      "DELETE"
+    ]
+  },
+  {
+    "path": "/products",
     "methods": [
       "GET"
     ]
   },
   {
-    "path": "/api/products",
+    "path": "/products/:id",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/products",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/products/:id",
+    "methods": [
+      "PUT"
+    ]
+  },
+  {
+    "path": "/products/:id",
+    "methods": [
+      "DELETE"
+    ]
+  },
+  {
+    "path": "/orders",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/orders/:id",
     "methods": [
       "GET"
     ]

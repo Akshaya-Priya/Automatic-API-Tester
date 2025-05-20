@@ -44,7 +44,7 @@ const { testFromFile } = require('./testEndpoints');
 
 async function listAllEndpoints(app, serverFilePath) {
   if (!app._router || !app._router.stack) {
-    console.error('❌ No routes found. Make sure the app exports an Express instance.');
+    console.error('No routes found. Make sure the app exports an Express instance.');
     return;
   }
 
@@ -71,18 +71,18 @@ async function listAllEndpoints(app, serverFilePath) {
 
   const routes = extractRoutes(app._router.stack);
 
-  console.log(`🔍 HTTP endpoints in "${serverFilePath}":`);
+  console.log(` HTTP endpoints in "${serverFilePath}":`);
   routes.forEach((r) => {
-    console.log(`➡️  ${r.methods.join(', ')} ${r.path}`);
+    console.log(` ${r.methods.join(', ')} ${r.path}`);
   });
 
   const outputFile = path.join(process.cwd(), 'all-endpoints.json');
 
   try {
     await fs.writeFile(outputFile, JSON.stringify(routes, null, 2), 'utf-8');
-    console.log(`📝 All endpoints saved to ${outputFile}`);
+    console.log(`All endpoints saved to ${outputFile}`);
   } catch (err) {
-    console.error(`❌ Failed to write file: ${err.message}`);
+    console.error(`Failed to write file: ${err.message}`);
     return;
   }
 
